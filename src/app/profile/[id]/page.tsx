@@ -1,12 +1,22 @@
-export default function userPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function UserPage({ params }: PageProps) {
+  const { id } = params;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-2xl font-bold mb-4">Profile</h1>
-      <p className="text-4xl ">Profile page </p>
-
-      <span className="p-2 rounded bg-orange-300 text-black m-2">
-        {params.id}{" "}
-      </span>
+      <h1 className="text-4xl">User Profile</h1>
+      <h2 className="text-2xl">User ID: {id}</h2>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  return {
+    title: `Profile of User ${params.id}`,
+  };
 }
