@@ -15,6 +15,7 @@ const eslintConfig = [
     rules: {
       // Disable specific rules
       "@typescript-eslint/no-explicit-any": "off", // Disable 'no-explicit-any'
+      "@typescript-eslint/no-unused-vars": "off", // Disable unused variable warnings
       "react-hooks/exhaustive-deps": "off", // Disable missing dependency warnings in useEffect
     },
   },
