@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import axios from "axios";  
 import Link from "next/link";
@@ -22,9 +21,13 @@ export default function VerifyEmailPage() {
       setverified(true);
 
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError(true);
-      console.log(error.response.data);
+      if (axios.isAxiosError(error)) {
+        console.error("Error verifying email:", error.response?.data.message || error.message);
+      } else {
+        console.error("An unexpected error occurred:", error);
+      }
       
     }finally{
       setLoading(false);

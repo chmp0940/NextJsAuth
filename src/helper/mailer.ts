@@ -57,14 +57,22 @@ export const sendEmail =async ({email,emailType,userId}:any)=>{
     try {
       const mailresponse = await transport.sendMail(mailOptions);
       console.log("Mailtrap response:", mailresponse);
-    } catch (error: any) {
-      console.error("Error sending test email:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error sending email:", error.message);
+      } else {
+        console.error("Error sending email:", error);
+      }
     }
     const mailresponse = await transport.sendMail(mailOptions);
     // console.log("Mailtrap response:", mailresponse);
     // console.log("Mail sent successfully:", mailresponse);
     return mailresponse;
-  } catch (error:any) {
-    throw new Error(error.message);
+  } catch (error:unknown) {
+    if (error instanceof Error) {
+      console.error("Error in sendEmail function:", error.message);
+    } else {
+      console.error("Error in sendEmail function:", error);
+    }
   }
 }

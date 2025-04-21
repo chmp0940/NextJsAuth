@@ -19,7 +19,8 @@ Usage	        Accessed via request.nextUrl.	 Used indirectly through
  */
 
   const path = request.nextUrl.pathname;
-  const isPublicPath = path === "/login" || path === "/signup"|| path === "/verifyemail";
+  const isPublicPath =
+    path === "/login" || path === "/signup" || path === "/verifyemail";
 
   const token = request.cookies.get("token")?.value || "";
 
@@ -41,11 +42,5 @@ Usage	        Accessed via request.nextUrl.	 Used indirectly through
 
 //Specifies that the middleware should only run for the following paths:
 export const config = {
-  matcher: [
-    "/", 
-    "/profile", 
-    "/login", 
-    "/signup",
-    "/verifyemail"
-  ],
+  matcher: ["/", "/profile", "/login", "/signup", "/verifyemail"],
 };

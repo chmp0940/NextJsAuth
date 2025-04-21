@@ -37,17 +37,18 @@ export default function Signup() {
       toast.success("Signup successful!");
       router.push("/login");
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      if (error.response?.status === 400) {
-        // Show popup if user already exists
-        toast.error(error.response.data.message || "User already exists");
+      
+    } catch(error:unknown)
+    {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || error.message);
       } else {
-        // Handle other errors
-        toast.error(error.response?.data?.message || "Something went wrong");
+        toast.error("An unexpected error occurred");
       }
-      console.error("Signup failed", error.message);
-    } finally {
+      // console.log("Signup failed", error);
+      // toast.error("Signup failed");
+    }
+    finally {
       setLoading(false);
     }
   };

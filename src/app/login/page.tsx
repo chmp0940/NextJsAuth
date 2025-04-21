@@ -1,24 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-/*
-By default, Next.js assumes components are Server Components unless explicitly marked as Client Components. Adding "use client"; at the top of the file tells Next.js that this component should be rendered on the client side.
-*/
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import  axios  from "axios";
-import toast from "react-hot-toast";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-/*
-Axios is a popular JavaScript library used to make HTTP requests (like GET, POST, PUT, DELETE) from your frontend or backend. It simplifies working with APIs by providing an easy-to-use interface for sending requests and handling responses.
-*/
-
-export default function Login() {
+export default function LoginPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
-
     password: "",
   });
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
@@ -28,12 +18,20 @@ export default function Login() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      console.log("Login Success", response.data);
-      toast.success("Login Success");
+      console.log("Login success", response.data);
+      toast.success("Login success");
       router.push("/profile");
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || error.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+      // console.log("Login failed", error);
+      // toast.error("Login failed");
+
+} finally {
+      setLoading(false);
     }
   };
 
@@ -44,23 +42,24 @@ export default function Login() {
       setButtonDisabled(true);
     }
   }, [user]);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1>Login</h1>
+      <h1>{loading ? "Processing" : "Login"}</h1>
       <hr />
 
       <label htmlFor="email">email</label>
       <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black bg-amber-50"
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
         id="email"
-        type="email"
+        type="text"
         value={user.email}
         onChange={(e) => setUser({ ...user, email: e.target.value })}
         placeholder="email"
       />
       <label htmlFor="password">password</label>
       <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black bg-amber-50"
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
         id="password"
         type="password"
         value={user.password}
@@ -68,13 +67,12 @@ export default function Login() {
         placeholder="password"
       />
       <button
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black bg-amber-500"
         onClick={onLogin}
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
       >
         Login here
       </button>
-      <br />
-      <Link href="/signup">Visit SignUp</Link>
+      <Link href="/signup">Visit Signup page</Link>
     </div>
   );
 }

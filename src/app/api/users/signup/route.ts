@@ -73,9 +73,14 @@ export async function POST(request: NextRequest) {
       savedUser,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error("Error in signup route:", error.message); // Log the error
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ message: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { message: "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }

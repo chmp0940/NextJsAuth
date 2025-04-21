@@ -55,8 +55,11 @@ export async function POST(request: NextRequest) {
       httpOnly: true, /// makes the cookie inaccessible to JavaScript on the client side, which helps prevent XSS attacks.
     });
     return response;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ message: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ message: "An unknown error occurred" }, { status: 500 });
   }
 }
