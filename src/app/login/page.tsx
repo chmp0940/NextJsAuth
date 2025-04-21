@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 /*
 By default, Next.js assumes components are Server Components unless explicitly marked as Client Components. Adding "use client"; at the top of the file tells Next.js that this component should be rendered on the client side.
