@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 interface PageProps {
   params: {
     id: string;
@@ -15,7 +17,9 @@ export default function UserPage({ params }: PageProps) {
   );
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   return {
     title: `Profile of User ${params.id}`,
   };
