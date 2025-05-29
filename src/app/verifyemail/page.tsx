@@ -38,8 +38,12 @@ export default function VerifyEmailPage() {
 useEffect(()=>{
   console.log("useEffect is running...");
   const urlToken = window.location.search.split("=")[1];
+  /*
+  This line extracts the token value from the URL, so you can use it to verify the user's email.
+  For example, if the URL is https://yourdomain.com/verifyemail?token=abc123,
+  urlToken will be "abc123".
+  */
   setToken(urlToken || "");
-
 },[])
 
 
@@ -67,7 +71,8 @@ return (
 
     {verified && (
       <div className="p-2 bg-green-500 text-black">
-        Email verified successfully! You can now{" "}
+        Email verified successfully! You can now{" "} 
+        {/* just for spacing {""} */}
         <Link className="underline bg-pink-600 p-2 rounded-md" href="/login">Login</Link>.
       </div>
     )}

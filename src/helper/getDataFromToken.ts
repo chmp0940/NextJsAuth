@@ -20,3 +20,10 @@ export const getDataFromToken = (req: NextRequest) => {
     throw new Error("An unknown error occurred");
   }
 };
+
+/* 
+    The client (browser) stores the token in a cookie and sends it with requests.
+    But when the client (browser) makes a request to your server (for example, an API call), the browser automatically sends the cookies along with the request.
+    only those who know the token secret can decode the token and access the data inside it.
+    This is why you can access the token data on the server side using the getDataFromToken function.
+*/

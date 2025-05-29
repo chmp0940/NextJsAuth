@@ -56,7 +56,7 @@ const logout=async ()=>{
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-purple-950">
       <h1 className="text-2xl font-bold mb-4">Profile</h1>
 
       <hr />
@@ -72,6 +72,9 @@ const logout=async ()=>{
       >
         Get User Details
       </button>
+      <br />
+
+      <h3>click to get on username page</h3>
       <h2 className="text-2xl p-2 rounded-b-md bg-amber-400 m-2">
         {data === "nothing" ? (
           "nothing"

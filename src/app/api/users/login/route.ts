@@ -23,6 +23,8 @@ export async function POST(request: NextRequest) {
     }
     // Check password
     const validPassword = await bcryptjs.compare(password, user.password);
+    // it first convert it into hashed password and then compare it with the hashed password stored in the database
+    // if the password is not valid, it will return false
     if (!validPassword) {
       return NextResponse.json(
         { message: "Invalid credentials" },
@@ -45,17 +47,25 @@ export async function POST(request: NextRequest) {
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
+    /*
+    jwt.sign creates a JSON Web Token (JWT).
+    It takes tokenData (user info like id, email, username) and encodes it into a secure token.
+    It uses your secret key (process.env.TOKEN_SECRET) to sign the token, so only your server can verify it.
+    */
+
     // console.log("token", token);
+
+    // always use vairable to set the cookie
     const response = NextResponse.json({
       message: "Login successful",
       success: true,
       // user: tokenData,
     });
     response.cookies.set("token", token, {
-      httpOnly: true, /// makes the cookie inaccessible to JavaScript on the client side, which helps prevent XSS attacks.
+      httpOnly: true, 
+      // makes the cookie inaccessible to JavaScript on the  client side, which helps prevent XSS attacks.
     });
     return response;
-
   } catch (error: unknown) {
     if (error instanceof Error) {
       return NextResponse.json({ message: error.message }, { status: 500 });

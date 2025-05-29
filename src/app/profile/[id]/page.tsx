@@ -5,6 +5,14 @@ interface PageProps {
     id: string;
   };
 }
+/*
+This tells TypeScript:
+"The component will receive a prop called params, and params will have an id property of type string."
+*/
+
+/*
+PageProps makes sure your component knows what data it will receive from Next.js for dynamic routes, and helps with type safety and autocompletion in TypeScript.
+*/
 
 export default function UserPage({ params }: PageProps) {
   const { id } = params;
@@ -24,3 +32,13 @@ export async function generateMetadata({
     title: `Profile of User ${params.id}`,
   };
 }
+
+/*
+The export async function generateMetadata function in a Next.js app dynamically sets the metadata (like the page <title>) for your page based on the route parameters.
+*/
+
+/*
+Usage:
+It allows each user profile page (e.g., /profile/123) to have a unique, descriptive title.
+This improves SEO and user experience, because the browser tab and search engines will show the correct title for each profile.
+*/
