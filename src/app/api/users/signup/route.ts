@@ -19,6 +19,11 @@ The POST method in this context refers to an HTTP POST request. It is used to se
 */
 connect();
 
+
+/*
+This function will run whenever a POST request is made to this API endpoint (for example, when a user submits a signup form).
+The request parameter is an object (NextRequest) that contains all the details about the incoming HTTP request (like body, headers, cookies, etc.).
+*/
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
