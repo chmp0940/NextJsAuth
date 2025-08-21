@@ -1,6 +1,10 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+[`Live Link `<img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/781d2fc0-89af-4f21-8885-73a433e9f6dd" />
+](https://next-js-auth-c54u-g5ghf90a6-mukund-mahakalkars-projects.vercel.app/)
+
 ## Getting Started
+
 
 First, run the development server:
 
