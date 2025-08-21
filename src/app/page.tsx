@@ -25,21 +25,6 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <style jsx>{`
-        .animate-fade-in {
-          animation: fadeIn 0.7s ease;
-        }
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 }
