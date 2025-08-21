@@ -1,5 +1,3 @@
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import axios from "axios";
 import Link from "next/link";
@@ -7,32 +5,25 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-
-
 export default function ProfilePage() {
-  /*
-  Dynamic Routing:
-Next.js uses this naming convention to automatically map the URL to the corresponding page.
-  */
-const router=useRouter();
-const [data,setData]=useState("nothing");
-const [id,setId]=useState("nothing");
+  // ...existing code...
+  const router = useRouter();
+  const [data, setData] = useState("nothing");
+  const [id, setId] = useState("nothing");
 
-const logout=async ()=>{
-      try {
+  const logout = async () => {
+    try {
       await axios.get("/api/users/logout");
       toast.success("Logout successful");
       // Redirect to the login page or home page after successful logout
 
-        router.push("/login");
-        
-      } catch (error:any) {
-        console.error("Logout failed:", error);
-        toast.error(error.message || "Logout failed");
-        
-      }
-}
-  const getUserDetails=async ()=>{
+      router.push("/login");
+    } catch (error: any) {
+      console.error("Logout failed:", error);
+      toast.error(error.message || "Logout failed");
+    }
+  };
+  const getUserDetails = async () => {
     const res = await axios.get("/api/users/me");
     console.log(res.data);
 
@@ -52,37 +43,66 @@ const logout=async ()=>{
     // console.log(res.data.data._id);
 
     setId(res.data.info._id);
-  }
-
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-purple-950">
-      <h1 className="text-2xl font-bold mb-4">Profile</h1>
-
-      <hr />
-      <button
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        onClick={logout}
-      >
-        Logout
-      </button>
-      <button
-        className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        onClick={getUserDetails}
-      >
-        Get User Details
-      </button>
-      <br />
-
-      <h3>click to get on username page</h3>
-      <h2 className="text-2xl p-2 rounded-b-md bg-amber-400 m-2">
-        {data === "nothing" ? (
-          "nothing"
-        ) : (
-          <Link href={`/profile/${data}`}>username :{data}</Link>
-        )}
-      </h2>
-      <h2 className="text-2xl font-bold mb-4 text-amber-400">id: {id}</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center animate-fade-in">
+        <div className="w-full flex justify-end mb-4">
+          <button
+            className="px-4 py-2 rounded-lg bg-violet-700 text-white font-semibold hover:bg-violet-800 transition-colors duration-200"
+            onClick={logout}
+          >
+            Logout
+          </button>
+        </div>
+        <div className="flex flex-col items-center gap-2 mb-6">
+          <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+            <svg width="48" height="48" fill="none" viewBox="0 0 24 24">
+              <path
+                fill="#bbb"
+                d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.418 0-8 1.79-8 4v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2c0-2.21-3.582-4-8-4Z"
+              />
+            </svg>
+          </div>
+          <div className="text-lg font-bold text-gray-900">
+            {data !== "nothing" ? data : "Your Name"}
+          </div>
+          <div className="text-sm text-gray-500">
+            {id !== "nothing" ? `${id}@email.com` : "your@email.com"}
+          </div>
+        </div>
+        <div className="w-full mb-6">
+          <div className="text-gray-700 font-semibold mb-2">
+            Account Settings
+          </div>
+          <div className="text-gray-500 text-sm mb-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </div>
+        </div>
+        <button
+          className="w-full py-3 rounded-lg bg-violet-700 text-white font-semibold hover:bg-violet-800 transition-colors duration-200 mt-2"
+          onClick={getUserDetails}
+        >
+          Get User Details
+        </button>
+      </div>
+      <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 0.7s ease;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }
